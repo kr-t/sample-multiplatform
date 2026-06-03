@@ -22,6 +22,6 @@ echo "Checking C formatting."
 
 find . -type f '(' -name '*.c' -o -name '*.h' ')' \
     '(' -path './src/*' -o -path './tests/*' ')' \
-    ! -name '*/build/*' \
+    ! -path '*/build/*' \
     -print0 | \
     xargs -0 -n1 clang-format ${ARGUMENT} -Werror
