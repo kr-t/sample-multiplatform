@@ -3,29 +3,12 @@ FROM ubuntu:24.04 AS main-ci
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ca-certificates \
-    curl \
     gcc \
-    git \
-    gpg \
     make \
     build-essential \
     cmake \
-    cppcheck \
-    clang \
-    clang-format \
-    clang-tools \
-    libclang-rt-dev \
-    llvm \
-    net-tools \
     sudo \
-    jq \
-    yamllint \
-    python3-autopep8 \
-    markdownlint \
-    && apt-get clean -y\
-    && update-alternatives --install /usr/bin/python python /usr/bin/python3 50
-
+    && apt-get clean -y
 
 FROM main-ci AS main-dev
 
