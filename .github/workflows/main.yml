@@ -24,3 +24,12 @@ jobs:
     permissions:
       contents: read
       packages: write
+
+  linux:
+    name: Build and run Linux targets
+    needs: 
+      - ci-container
+    uses: ./.github/workflows/linux.yml
+    secrets: inherit
+    with:
+      container-tag: ${{ needs.ci-container.outputs.container-tag }}
