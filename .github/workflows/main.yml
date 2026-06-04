@@ -16,3 +16,11 @@ jobs:
     name: Formatting checks
     uses: ./.github/workflows/formatting-checks.yml
     secrets: inherit
+
+  ci-container:
+    name: CI container
+    uses: ./.github/workflows/ci-container.yml
+    secrets: inherit
+    permissions:
+      contents: read
+      packages: write
