@@ -7,3 +7,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_C_STANDARD 99)
 
 add_executable(main src/main.c)
+
+add_custom_target(run-main
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/main
+        DEPENDS main
+)
