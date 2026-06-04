@@ -11,7 +11,10 @@ on:
 jobs:
   build-and-run-linux:
     name: Build and Run
-    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        runner: [ubuntu-24.04, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.runner }}
     container:
       image: ghcr.io/${{ github.repository }}/ci-container:${{ inputs.container-tag }}
     steps:
