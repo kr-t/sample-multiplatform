@@ -27,7 +27,7 @@ jobs:
         with:
           exclude_submodules: true
           files: |
-            .devcontainer/linux/Dockerfile
+            .devcontainer/Dockerfile
 
       - name: Set container tag
         id: container-tag
@@ -70,8 +70,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v7
         with:
-          context: .devcontainer/linux
-          file: .devcontainer/linux/Dockerfile
+          context: .devcontainer
+          file: .devcontainer/Dockerfile
           target: main-ci
           push: true
           provenance: false
