@@ -1,0 +1,41 @@
+name: Zephyr
+
+on:
+  workflow_call:
+
+jobs:
+  build-and-run-zephyr:
+    name: Build and Run
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        board: [native_sim, native_sim/native/64]
+    container:
+      image: ghcr.io/zephyrproject-rtos/zephyr-build@sha256:da6f5f57573309d759282edd2b3e530767eb8bc6c1760563a7ef301a0182ac6e # v0.29.2
+      options: --user root
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          submodules: true
+
+      - name: Setup Zephyr project
+        uses: zephyrproject-rtos/action-zephyr-setup@5ec39f5cba83346d83a836dfed1524270c660e28 # V1.0.14
+        with:
+          app-path: .
+
+      - name: Build (application)
+        run: west build -p -b ${{ matrix.board }} zephyr/
+
+      - name: Run (application)
+        run: |
+          EXPECTED_LOG="Hello World"
+          echo "info: Running the application"
+          stdbuf -oL -eL timeout 5s bash -c "west build -t run" | tee zephyr_run.log
+          echo "info: Checking for expected log"
+          if grep -q "$EXPECTED_LOG" zephyr_run.log; then
+            echo "info: Found expected log: $EXPECTED_LOG"
+          else
+            echo "error: Expected log not found: $EXPECTED_LOG"
+            exit 1
+          fi
