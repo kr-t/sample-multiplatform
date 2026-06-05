@@ -1,0 +1,15 @@
+manifest:
+  projects:
+    - name: zephyr
+      revision: v4.4.0
+      url: https://github.com/zephyrproject-rtos/zephyr
+      west-commands: scripts/west-commands.yml
+      import:
+        name-allowlist:
+          - littlefs
+          - picolibc
+          - hal_stm32
+          - hal_st
+          - cmsis_6
+  self:
+    path: sample-multiplatform
