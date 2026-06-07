@@ -11,7 +11,7 @@ jobs:
       matrix:
         board: [native_sim, native_sim/native/64]
     container:
-      image: ghcr.io/zephyrproject-rtos/zephyr-build@sha256:da6f5f57573309d759282edd2b3e530767eb8bc6c1760563a7ef301a0182ac6e # v0.29.2
+      image: ghcr.io/zephyrproject-rtos/ci@sha256:639a60fb0b381a18ed58628a5996b17aae547d5b2c37d637a7f07a9bd86c511e # v0.29.2
       options: --user root
     steps:
       - name: Checkout
