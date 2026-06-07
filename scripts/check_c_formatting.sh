@@ -25,4 +25,5 @@ echo "Checking C formatting."
 find "$ROOT_DIR" -type f \( -name '*.c' -o -name '*.h' \) \
     \( -path '*/src/*' -o -path '*/tests/*' \) \
     ! -path '*/build/*' \
+    ! -path '*/Unity/*' \
     -exec clang-format "$ARGUMENT" -Werror {} +
