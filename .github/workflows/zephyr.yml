@@ -9,7 +9,13 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        board: [native_sim, native_sim/native/64]
+        include:
+          - board: native_sim
+            exec: stdbuf -oL -eL timeout 5s bash -c "west build -t run"
+          - board: native_sim/native/64
+            exec: stdbuf -oL -eL timeout 5s bash -c "west build -t run"
+          - board: nrf52840dk/nrf52840
+            exec: renode --disable-xwt -e "include @platforms/boards/nrf52840dk_nrf52840.repl; sysbus LoadELF @build/zephyr/zephyr.elf; showAnalyzer uart0; emulation RunFor \"5s\"; start; quit"
     container:
       image: ghcr.io/zephyrproject-rtos/ci@sha256:639a60fb0b381a18ed58628a5996b17aae547d5b2c37d637a7f07a9bd86c511e # v0.29.2
       options: --user root
@@ -31,7 +37,7 @@ jobs:
         run: |
           EXPECTED_LOG="Hello World"
           echo "info: Running the application"
-          stdbuf -oL -eL timeout 5s bash -c "west build -t run" | tee zephyr_run.log
+          ${{ matrix.exec }} | tee zephyr_run.log
           echo "info: Checking for expected log"
           if grep -q "$EXPECTED_LOG" zephyr_run.log; then
             echo "info: Found expected log: $EXPECTED_LOG"
