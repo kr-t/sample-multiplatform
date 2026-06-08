@@ -8,6 +8,7 @@ manifest:
         name-allowlist:
           - littlefs
           - picolibc
+          - hal_nordic
           - hal_stm32
           - hal_st
           - cmsis_6
