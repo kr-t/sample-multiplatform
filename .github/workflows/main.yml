@@ -18,8 +18,16 @@ jobs:
     secrets: inherit
 
   ci-container:
-    name: CI container
+    name: CI container - linux
     uses: ./.github/workflows/ci-container.yml
+    secrets: inherit
+    permissions:
+      contents: read
+      packages: write
+
+  ci-container-zephyr:
+    name: CI container - zephyr
+    uses: ./.github/workflows/ci-container-zephyr.yml
     secrets: inherit
     permissions:
       contents: read
