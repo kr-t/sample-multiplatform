@@ -2,6 +2,12 @@ name: Zephyr
 
 on:
   workflow_call:
+    inputs:
+      container-tag:
+        description: The container tag to be used
+        default: latest
+        required: false
+        type: string
 
 jobs:
   build-and-run-zephyr:
@@ -17,7 +23,7 @@ jobs:
           - board: nrf52840dk/nrf52840
             exec: renode --disable-xwt -e "include @platforms/boards/nrf52840dk_nrf52840.repl; sysbus LoadELF @build/zephyr/zephyr.elf; showAnalyzer uart0; emulation RunFor \"5s\"; start; quit"
     container:
-      image: ghcr.io/zephyrproject-rtos/ci@sha256:639a60fb0b381a18ed58628a5996b17aae547d5b2c37d637a7f07a9bd86c511e # v0.29.2
+      image: ghcr.io/${{ github.repository }}/ci-container-zephyr:${{ inputs.container-tag }}
       options: --user root
     steps:
       - name: Checkout

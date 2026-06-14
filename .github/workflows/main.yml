@@ -44,5 +44,9 @@ jobs:
 
   zephyr:
     name: Build and run Zephyr targets
+    needs:
+      - ci-container-zephyr
     uses: ./.github/workflows/zephyr.yml
     secrets: inherit
+    with:
+      container-tag: ${{ needs.ci-container-zephyr.outputs.container-tag }}
