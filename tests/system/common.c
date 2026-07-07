@@ -6,6 +6,8 @@
 #include <string.h>
 #include <stdlib.h>
 
+#include <sample/common.h>
+
 
 void setUp(void)
 {
@@ -19,8 +21,7 @@ void tearDown(void)
 
 void test_common(void)
 {
-	char *client = "test";
-	TEST_ASSERT_NOT_NULL(client);
+	TEST_ASSERT_EQUAL_INT(5, sum(2, 3));
 }
 
 int main(void)
