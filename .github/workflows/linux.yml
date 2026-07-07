@@ -36,6 +36,20 @@ jobs:
       - name: Delete build directory
         run: rm -rf build
 
+      - name: Configure (system tests)
+        run: cmake -B build
+
+      - name: Build (system tests)
+        working-directory: build
+        run: make
+        
+      - name: Run (system tests)
+        working-directory: build
+        run: make run-systests
+
+      - name: Delete build directory
+        run: rm -rf build
+
       - name: Configure (application)
         run: cmake -B build
 
