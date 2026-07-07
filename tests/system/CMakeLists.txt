@@ -12,10 +12,16 @@ foreach(test ${TESTS})
 		../Unity/src/unity.c
 	)
 
-	target_include_directories(test_${test} PRIVATE
-        ../../src
+	target_include_directories(test_${test}
+	PRIVATE
+        ../../src/common
         ../Unity/src
     	)
+
+	target_link_libraries(test_${test}
+	PRIVATE
+	Common
+	)
 
   add_custom_command(
         OUTPUT test_${test}.log
