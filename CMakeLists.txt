@@ -8,6 +8,9 @@ set(CMAKE_C_STANDARD 99)
 
 add_subdirectory(src/common)
 
+# tests
+add_subdirectory(tests EXCLUDE_FROM_ALL)
+
 add_executable(main src/main.c)
 
 target_link_libraries(main
